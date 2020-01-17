@@ -1,0 +1,63 @@
+version: '3.7'
+
+
+services:
+
+  frontend:
+    container_name: 'react_frontend'
+    build:
+      context: ./frontend_main
+      dockerfile: Dockerfile
+    volumes:
+      - './frontend_main:/app'
+      - '/app/node_modules'
+    depends_on:
+      - backend_main
+    ports:
+      - '3000:3000'
+    environment:
+      - NODE_ENV=development
+
+  backend_main:
+    container_name: 'api_main'
+    build:
+      context: ./backend_main
+      dockerfile: Dockerfile
+    volumes:
+        - './backend_main:/usr/src/app'
+        - /usr/src/app/node_modules
+    depends_on:
+          - db
+    environment:
+        NODE_ENV: development
+    ports:
+        - 4000:4000
+    command: npm start
+    
+  db:
+      container_name: 'db'
+      image: 'mongo:4' 
+      ports:
+        - "27017:27017"  
+  backend_generated:
+    container_name: 'api_generated'
+    build:
+      context: ./backend_generated
+      dockerfile: Dockerfile
+    volumes:
+        - './backend_generated:/usr/src/app'
+        - /usr/src/app/node_modules
+    depends_on:
+          - db
+    environment:
+        NODE_ENV: development
+    ports:
+        - 5000:5000
+    command: npm start
+
+  adminmongo:
+    image: "mrvautin/adminmongo"
+    ports:
+      - "1234:1234"
+    environment:
+      - HOST=0.0.0.0

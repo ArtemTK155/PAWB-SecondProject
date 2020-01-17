@@ -1,0 +1,11 @@
+
+router.post('/#ENDPOINT#', async (req, res) => {
+	#MODEL_INSTANCE#
+	try {
+		const saved = await model.save();
+		return res.json(saved);
+	} catch (err) {
+		console.log(err);
+		return res.json({ code: '500', msg: 'Failed to create' });
+	}
+});

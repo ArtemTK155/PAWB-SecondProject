@@ -1,0 +1,9 @@
+const mongoose = require('mongoose');
+
+const #MODEL# = mongoose.Schema({
+	
+	#MODEL_FIELDS#
+	
+});
+
+module.exports = mongoose.model('#MODEL#', #MODEL#);

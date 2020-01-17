@@ -1,0 +1,9 @@
+
+router.get('/#ENDPOINT#', async (req, res) => {
+	try {
+		//#GET_ALL#
+		res.json(model);
+	} catch (err) {
+		console.log(err);
+	}
+});
